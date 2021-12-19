@@ -15,6 +15,11 @@ namespace RunnerMovementSystem.Examples
             _roadMovement.PathChanged += OnPathChanged;
         }
 
+        private void OnDisable()
+        {
+            _roadMovement.PathChanged -= OnPathChanged;
+        }
+
         private void OnPathChanged()
         {
             _saveOffset = _roadMovement.Offset;

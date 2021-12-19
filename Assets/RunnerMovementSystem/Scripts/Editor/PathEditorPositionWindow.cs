@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using PathCreation;
+using UnityEditor.SceneManagement;
 
 namespace RunnerMovementSystem.Editor
 {
@@ -27,7 +28,7 @@ namespace RunnerMovementSystem.Editor
             _startPoint = new AnchorPoint();
             _endPoint = new AnchorPoint();
 
-            var window = GetWindow<PathEditorPositionWindow>("Path Editor Position Window");
+            GetWindow<PathEditorPositionWindow>("Path Editor Position Window");
         }
         
         [Obsolete]
@@ -49,6 +50,9 @@ namespace RunnerMovementSystem.Editor
                 UpdatePosition(0, _startPoint);
             if (_endPoint.Path != null)
                 UpdatePosition(_selfPathCreator.bezierPath.NumPoints - 1, _endPoint);
+
+            EditorWindow view = EditorWindow.GetWindow<SceneView>();
+            view.Repaint();
         }
 
         [Obsolete]
@@ -66,7 +70,7 @@ namespace RunnerMovementSystem.Editor
             var normal = pathCreator.path.GetNormalAtDistance(position.Distance);
             targetPoint += normal * position.Offset;
 
-            _selfPathCreator.bezierPath.SetPoint(pointIndex, _selfPathCreator.transform.InverseTransformPoint(targetPoint));
+            _selfPathCreator.bezierPath.SetPoint(pointIndex, _selfPathCreator.transform.InverseTransformPoint(targetPoint));            
         }
 
         private AnchorPoint GetNearestPoint(Vector3 position)

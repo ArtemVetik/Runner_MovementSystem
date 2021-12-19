@@ -59,12 +59,12 @@ namespace RunnerMovementSystem
             }
 
             var endPoint = pathCreator.path.GetPointAtDistance(pathCreator.path.length, EndOfPathInstruction.Stop);
-            var prevPoint = pathCreator.path.GetPointAtDistance(pathCreator.path.length * 0.8f);
-            var prevNormal = pathCreator.path.GetNormalAtDistance(pathCreator.path.length * 0.8f);
+            var prevPoint = pathCreator.path.GetPointAtDistance(pathCreator.path.length * 0.85f);
+            var prevNormal = pathCreator.path.GetNormalAtDistance(pathCreator.path.length * 0.85f);
 
             Gizmos.color = Color.blue;
 
-            Gizmos.DrawLine(endPoint, prevPoint);
+            Gizmos.DrawLine(endPoint, pathCreator.path.GetPointAtDistance(pathCreator.path.length * 0.7f));
             Gizmos.DrawLine(endPoint, prevPoint - prevNormal * Width / 2f);
             Gizmos.DrawLine(endPoint, prevPoint + prevNormal * Width / 2f);
 
