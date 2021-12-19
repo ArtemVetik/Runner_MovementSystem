@@ -1,6 +1,4 @@
 using UnityEngine;
-using PathCreation;
-using PathCreation.Examples;
 using UnityEngine.Events;
 
 namespace RunnerMovementSystem
