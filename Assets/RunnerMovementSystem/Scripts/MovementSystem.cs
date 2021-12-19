@@ -39,6 +39,13 @@ namespace RunnerMovementSystem
 
         private void Start()
         {
+            if (_firstRoad)
+                Init(_firstRoad);
+        }
+
+        public void Init(RoadSegment firstRoad)
+        {
+            _firstRoad = firstRoad;
             _roadMovement.Init(_firstRoad, _options);
             _currentMovement = _roadMovement;
         }

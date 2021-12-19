@@ -29,7 +29,7 @@ namespace RunnerMovementSystem.Editor
 
             var window = GetWindow<PathEditorPositionWindow>("Path Editor Position Window");
         }
-
+        
         [Obsolete]
         private void OnGUI()
         {
