@@ -13,6 +13,8 @@ namespace PathCreationTools
         [SerializeField] private float _offset;
         [SerializeField] private float _height;
 
+        public bool Attached => _pathCreator != null;
+
         private void OnValidate()
         {
             if (_pathCreator)

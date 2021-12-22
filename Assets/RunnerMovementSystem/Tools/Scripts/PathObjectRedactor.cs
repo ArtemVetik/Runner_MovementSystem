@@ -20,6 +20,12 @@ namespace PathCreationTools
         public int CachedCount => _cachedObjects.Count;
         public float DistanceBetweenObjects => _distanceBetweenObjects;
 
+        private void OnValidate()
+        {
+            if (_distanceBetweenObjects < 0)
+                _distanceBetweenObjects = 0;
+        }
+
         public void InstantiateObject(RaycastHit hitInfo)
         {
             if (_template == null)

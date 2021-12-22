@@ -21,6 +21,8 @@ namespace PathCreationTools.Editor
                 
             GUILayout.EndHorizontal();
 
+            if ((target as PathObject).Attached == false)
+                EditorGUILayout.HelpBox("This object is not attached to the curve", MessageType.Warning);
 
             base.OnInspectorGUI();
         }
