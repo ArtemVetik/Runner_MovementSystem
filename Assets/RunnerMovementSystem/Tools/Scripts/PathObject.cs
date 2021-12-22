@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using PathCreation;
 
@@ -7,7 +7,7 @@ namespace PathCreationTools
 {
     public class PathObject : MonoBehaviour
     {
-        [SerializeField] private PathCreator _pathCreator;
+        [SerializeField, HideInInspector] private PathCreator _pathCreator;
         [SerializeField] private float _distance;
         [SerializeField] private float _offset;
         [SerializeField] private float _height;
@@ -20,10 +20,18 @@ namespace PathCreationTools
 
         public void Setup(PathCreator pathCreator, float distance, float offset, float height)
         {
+            if (pathCreator == null)
+                throw new NullReferenceException(nameof(pathCreator));
+
+            if (_pathCreator)
+                _pathCreator.pathUpdated -= OnPathUpdated;
+
             _pathCreator = pathCreator;
             _distance = distance;
             _offset = offset;
             _height = height;
+
+            _pathCreator.pathUpdated += OnPathUpdated;
 
             UpdatePosition();
         }
@@ -35,7 +43,12 @@ namespace PathCreationTools
             if (nearestPath == null)
                 return;
 
+            if (_pathCreator)
+                _pathCreator.pathUpdated -= OnPathUpdated;
+
             _pathCreator = nearestPath;
+            _pathCreator.pathUpdated += OnPathUpdated;
+
             _distance = nearestPath.path.GetClosestDistanceAlongPath(transform.position);
 
             var nearestPoint = nearestPath.path.GetPointAtDistance(_distance);
@@ -60,7 +73,12 @@ namespace PathCreationTools
             if (nearestPath == null)
                 return;
 
+            if (_pathCreator)
+                _pathCreator.pathUpdated -= OnPathUpdated;
+
             _pathCreator = nearestPath;
+            _pathCreator.pathUpdated += OnPathUpdated;
+
             _distance = nearestPath.path.GetClosestDistanceAlongPath(transform.position);
             _offset = 0f;
             _height = 0f;
@@ -84,6 +102,11 @@ namespace PathCreationTools
             point += transform.up * _height;
 
             transform.position = point;
+        }
+
+        private void OnPathUpdated()
+        {
+            UpdatePosition();
         }
     }
 }
