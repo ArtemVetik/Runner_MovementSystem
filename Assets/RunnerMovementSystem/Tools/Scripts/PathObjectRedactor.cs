@@ -22,9 +22,12 @@ namespace PathCreationTools
 
         public void InstantiateObject(RaycastHit hitInfo)
         {
+            if (_template == null)
+                throw new NullReferenceException("Template is null");
+
             var nearestPath = hitInfo.point.FindNearestPath();
             if (nearestPath == null)
-                throw new Exception("Can't find nearest PathCreator");
+                throw new NullReferenceException("Can't find nearest PathCreator");
 
             var distance = nearestPath.path.GetClosestDistanceAlongPath(hitInfo.point);
 
@@ -62,7 +65,7 @@ namespace PathCreationTools
         {
             var nearestPath = position.FindNearestPath();
             if (nearestPath == null)
-                throw new Exception("Can't find nearest PathCreator");
+                throw new NullReferenceException("Can't find nearest PathCreator");
 
             return nearestPath.path.GetClosestPointOnPath(position);
         }

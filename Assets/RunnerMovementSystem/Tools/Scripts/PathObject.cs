@@ -5,6 +5,7 @@ using PathCreation;
 
 namespace PathCreationTools
 {
+    [ExecuteInEditMode]
     public class PathObject : MonoBehaviour
     {
         [SerializeField, HideInInspector] private PathCreator _pathCreator;
@@ -102,6 +103,12 @@ namespace PathCreationTools
             point += transform.up * _height;
 
             transform.position = point;
+        }
+
+        private void OnDestroy()
+        {
+            if (_pathCreator)
+                _pathCreator.pathUpdated -= OnPathUpdated;
         }
 
         private void OnPathUpdated()

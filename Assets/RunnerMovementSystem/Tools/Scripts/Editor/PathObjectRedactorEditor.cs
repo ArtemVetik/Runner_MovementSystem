@@ -5,6 +5,7 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace PathCreationTools.Editor
 {
@@ -74,14 +75,18 @@ namespace PathCreationTools.Editor
         {
             GUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Bake"))
+            if (GUILayout.Button("Bake Colliders"))
                 _pathObjectRedactor.Bake();
-            if (GUILayout.Button("Clear"))
+            if (GUILayout.Button("Clear Colliders"))
                 _pathObjectRedactor.Clear();
 
             GUILayout.EndHorizontal();
 
-            GUILayout.Label($"Cached: {_pathObjectRedactor.CachedCount} path");
+            GUILayout.Label($"Baked: {_pathObjectRedactor.CachedCount} path");
+            GUILayout.Space(15f);
+            EditorGUILayout.HelpBox("SHIFT + Left Mouse Button = Add Object\n" +
+                "CTRL + Left Mouse Button = Remove Object", MessageType.Info);
+            GUILayout.Space(15f);
 
             base.OnInspectorGUI();
         }
@@ -133,7 +138,5 @@ namespace PathCreationTools.Editor
                 }
             }
         }
-
-        protected override void OnHeaderGUI() { }
     }
 }
