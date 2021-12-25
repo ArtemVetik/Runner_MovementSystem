@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using PathCreationTools;
 
-namespace PathCreationTools.Editor
+namespace PathCreationToolsEditor
 {
     [CustomEditor(typeof(PathObject))]
     [CanEditMultipleObjects]
-    public class PathObjectEditor : UnityEditor.Editor
+    public class PathObjectEditor : Editor
     {
         public override void OnInspectorGUI()
         {

@@ -1,15 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
 using System;
-using System.Linq;
 using UnityEditor;
 
 namespace PathCreationTools
 {
     public class PathObjectRedactor : MonoBehaviour
     {
+#if UNITY_EDITOR
         [SerializeField, HideInInspector] private List<CachedObject> _cachedObjects = new List<CachedObject>();
         [SerializeField] private PathObject _template;
         [SerializeField] private Transform _parent;
@@ -129,4 +128,5 @@ namespace PathCreationTools
             public Collider Collider => _collider;
         }
     }
+#endif
 }

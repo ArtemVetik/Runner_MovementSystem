@@ -1,16 +1,12 @@
-using PathCreation;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
+using PathCreationTools;
 
-namespace PathCreationTools.Editor
+namespace PathCreationToolsEditor
 {
     [CustomEditor(typeof(PathObjectRedactor))]
-    public class PathObjectRedactorEditor : UnityEditor.Editor
+    public class PathObjectRedactorEditor : Editor
     {
         private PathObjectRedactor _pathObjectRedactor;
         private Vector3 _startDragPosition;
