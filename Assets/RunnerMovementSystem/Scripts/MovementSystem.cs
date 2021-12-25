@@ -1,18 +1,17 @@
 using UnityEngine;
 using UnityEngine.Events;
+using RunnerMovementSystem.Model;
 
 namespace RunnerMovementSystem
 {
-    [RequireComponent(typeof(RoadMovement))]
-    [RequireComponent(typeof(TransitionMovement))]
     public class MovementSystem : MonoBehaviour
     {
         [SerializeField] private RoadSegment _firstRoad;
         [SerializeField] private MovementOptions _options;
 
+        private MovementBehaviour _movementBehaviour;
         private RoadMovement _roadMovement;
         private TransitionMovement _transitionMovement;
-
         private IMovement _currentMovement;
 
         public event UnityAction PathChanged;
@@ -21,8 +20,10 @@ namespace RunnerMovementSystem
 
         private void Awake()
         {
-            _roadMovement = GetComponent<RoadMovement>();
-            _transitionMovement = GetComponent<TransitionMovement>();
+            _movementBehaviour = new MovementBehaviour(transform, _options);
+
+            _roadMovement = new RoadMovement(_movementBehaviour);
+            _transitionMovement = new TransitionMovement(_movementBehaviour);
         }
 
         private void OnEnable()
@@ -43,10 +44,15 @@ namespace RunnerMovementSystem
                 Init(_firstRoad);
         }
 
+        private void Update()
+        {
+            _currentMovement?.Update();
+        }
+
         public void Init(RoadSegment firstRoad)
         {
             _firstRoad = firstRoad;
-            _roadMovement.Init(_firstRoad, _options);
+            _roadMovement.Init(_firstRoad);
             _currentMovement = _roadMovement;
         }
 
@@ -64,7 +70,7 @@ namespace RunnerMovementSystem
         {
             PathChanged?.Invoke();
 
-            _transitionMovement.Init(transition, _options);
+            _transitionMovement.Init(transition);
             _currentMovement = _transitionMovement;
         }
 
@@ -74,16 +80,18 @@ namespace RunnerMovementSystem
             if (nearestRoad == null)
                 return;
             
-            _roadMovement.Init(nearestRoad, _options);
+            _roadMovement.Init(nearestRoad);
             _currentMovement = _roadMovement;
+
             PathChanged?.Invoke();
         }
 
         private void OnTransitionEnd(TransitionSegment transition)
         {
             var nearestRoad = transition.GetNearestRoad(transform.position);
-            _roadMovement.Init(nearestRoad, _options);
+            _roadMovement.Init(nearestRoad);
             _currentMovement = _roadMovement;
+
             PathChanged?.Invoke();
         }
     }

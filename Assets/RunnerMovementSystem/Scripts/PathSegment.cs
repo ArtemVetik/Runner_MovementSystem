@@ -9,13 +9,13 @@ namespace RunnerMovementSystem
     public abstract class PathSegment : MonoBehaviour
     {
         [SerializeField] private List<RoadSegment> _targetRoads;
-        [SerializeField] private IgnoreRotation _ignoreRotation;
         [SerializeField] private AnimationCurve _speedRateByLength = AnimationCurve.Constant(0f, 1f, 1f);
+        [SerializeField] private IgnoreRotation _ignoreRotation;
 
         private PathCreator _pathCreator;
 
-        public IgnoreRotation IgnoreRotation => _ignoreRotation;
         public abstract float Width { get; }
+        public IgnoreRotation IgnoreRotation => _ignoreRotation;
         public float Length => _pathCreator.path.length;
 
         private void OnValidate()

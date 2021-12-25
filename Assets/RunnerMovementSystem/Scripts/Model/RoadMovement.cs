@@ -1,35 +1,26 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RunnerMovementSystem
+namespace RunnerMovementSystem.Model
 {
-    [RequireComponent(typeof(MovementBehaviour))]
-    internal class RoadMovement : MonoBehaviour, IMovement
+    internal class RoadMovement : IMovement
     {
         private MovementBehaviour _movementBehaviour;
         private RoadSegment _roadSegment;
+
+        public RoadMovement(MovementBehaviour movementBehaviour)
+        {
+            _movementBehaviour = movementBehaviour;
+        }
 
         public event UnityAction<RoadSegment> EndReached;
 
         public float Offset => _movementBehaviour.Offset;
 
-        private void Awake()
+        public void Update()
         {
-            _movementBehaviour = GetComponent<MovementBehaviour>();
-        }
-
-        private void Update()
-        {
-            if (_roadSegment.AutoMoveForward == false)
-                return;
-
-            Move();
-        }
-
-        public void Init(RoadSegment roadSegment, MovementOptions movementOptions)
-        {
-            _roadSegment = roadSegment;
-            _movementBehaviour.Init(roadSegment, movementOptions);
+            if (_roadSegment.AutoMoveForward)
+                Move();
         }
 
         public void MoveForward()
@@ -43,6 +34,12 @@ namespace RunnerMovementSystem
         public void SetOffset(float offset)
         {
             _movementBehaviour.SetOffset(offset);
+        }
+
+        public void Init(RoadSegment roadSegment)
+        {
+            _roadSegment = roadSegment;
+            _movementBehaviour.Init(roadSegment);
         }
 
         private void Move()
