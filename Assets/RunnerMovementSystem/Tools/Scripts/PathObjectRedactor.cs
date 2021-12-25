@@ -127,6 +127,6 @@ namespace PathCreationTools
             public PathCreator PathCreator => _pathCreator;
             public Collider Collider => _collider;
         }
-    }
 #endif
+    }
 }
