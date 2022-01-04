@@ -16,10 +16,12 @@ namespace RunnerMovementEditor
 
         public override void OnInspectorGUI()
         {
+            GUILayout.BeginHorizontal();
             if (GUILayout.Button("Connect Start"))
                 _pathConnector.SetupStartPosition();
             if (GUILayout.Button("Connect End"))
                 _pathConnector.SetupEndPosition();
+            GUILayout.EndHorizontal();
 
             if (_pathConnector.StartConnected == false)
                 EditorGUILayout.HelpBox("Start point is not connected. Push \"Connect Start\" button.", MessageType.Warning);
