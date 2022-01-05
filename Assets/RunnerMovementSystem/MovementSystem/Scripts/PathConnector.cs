@@ -10,20 +10,26 @@ namespace RunnerMovementSystem
     [RequireComponent(typeof(PathCreator))]
     public class PathConnector : MonoBehaviour
     {
+#if UNITY_EDITOR
         [SerializeField] private AnchorPoint _startPoint = AnchorPoint.Default;
         [SerializeField] private AnchorPoint _endPoint = AnchorPoint.Default;
 
         private PathSegment _selfPathSegment;
         private PathCreator _selfPathCreator;
 
-        public bool StartConnected => _startPoint.Path != null;
-        public bool EndConnected => _endPoint.Path != null;
+        public bool StartConnected => _startPoint.TargetPath != null;
+        public bool EndConnected => _endPoint.TargetPath != null;
 
         private void OnValidate()
         {
-            if (_startPoint.Path)
+            if (Application.isPlaying)
+                return;
+            if (_selfPathCreator == null)
+                return;
+
+            if (_startPoint.TargetPath)
                 UpdatePosition(0, _startPoint);
-            if (_endPoint.Path)
+            if (_endPoint.TargetPath)
                 UpdatePosition(_selfPathCreator.bezierPath.NumPoints - 1, _endPoint);
         }
 
@@ -47,7 +53,7 @@ namespace RunnerMovementSystem
 
         private void UpdatePosition(int pointIndex, AnchorPoint position)
         {
-            var pathCreator = position.Path.GetComponent<PathCreator>();
+            var pathCreator = position.TargetPath.GetComponent<PathCreator>();
             var distance = position.NormalizeDistance * pathCreator.path.length;
 
             var targetPoint = pathCreator.path.GetPointAtDistance(distance, EndOfPathInstruction.Stop);
@@ -89,22 +95,23 @@ namespace RunnerMovementSystem
         [Serializable]
         private class AnchorPoint
         {
-            [SerializeField, ReadOnly] private PathSegment _path;
+            [SerializeField, ReadOnly] private PathSegment _targetPath;
             [SerializeField, Range(0f, 1f)] private float _distance;
             [SerializeField] private float _offset;
 
             public AnchorPoint(PathSegment path, float distance, float offset)
             {
-                _path = path;
+                _targetPath = path;
                 _distance = distance;
                 _offset = offset;
             }
 
-            public PathSegment Path => _path;
+            public PathSegment TargetPath => _targetPath;
             public float NormalizeDistance => _distance;
             public float Offset => _offset;
 
             public static AnchorPoint Default => new AnchorPoint(null, 0, 0);
         }
+#endif
     }
 }

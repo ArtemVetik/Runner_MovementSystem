@@ -20,7 +20,7 @@ namespace RunnerMovementSystem.Examples
             _roadMovement.PathChanged -= OnPathChanged;
         }
 
-        private void OnPathChanged()
+        private void OnPathChanged(PathSegment _)
         {
             _saveOffset = _roadMovement.Offset;
             _mousePosition = Input.mousePosition;

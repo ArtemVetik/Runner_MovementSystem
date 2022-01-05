@@ -16,7 +16,6 @@ namespace RunnerMovementSystem.Model
         }
 
         public bool EndReached => _distanceTravelled >= _pathSegment.Length;
-
         public float Offset { get; private set; }
 
         public void Init(PathSegment pathSegment)
@@ -31,8 +30,7 @@ namespace RunnerMovementSystem.Model
 
         public void MoveForward()
         {
-            var speedRate = _pathSegment.GetSpeedRate(_distanceTravelled / _pathSegment.Length);
-            _distanceTravelled += _movementOptions.MoveSpeed * speedRate * Time.deltaTime;
+            _distanceTravelled += GetCurrentSpeed() * Time.deltaTime;
             _distanceTravelled = Mathf.Clamp(_distanceTravelled, 0f, _pathSegment.Length);
         }
 
@@ -51,6 +49,12 @@ namespace RunnerMovementSystem.Model
 
             _targetTransform.position = _pathSegment.GetPointAtDistance(_distanceTravelled);
             _targetTransform.position += _targetTransform.right * Offset;
+        }
+
+        public float GetCurrentSpeed()
+        {
+            var speedRate = _pathSegment.GetSpeedRate(_distanceTravelled / _pathSegment.Length);
+            return _movementOptions.MoveSpeed * speedRate;
         }
     }
 }
