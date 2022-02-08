@@ -11,13 +11,15 @@ namespace PathCreationTools
 #if UNITY_EDITOR
         [SerializeField, HideInInspector] private List<CachedObject> _cachedObjects = new List<CachedObject>();
         [SerializeField] private PathObject _template;
-        [SerializeField] private Transform _parent;
+        [SerializeField] private Transform _container;
+        [Space(10)]
         [SerializeField] private float _offset;
         [SerializeField] private float _height;
         [SerializeField] private float _distanceBetweenObjects;
 
         public int CachedCount => _cachedObjects.Count;
         public float DistanceBetweenObjects => _distanceBetweenObjects;
+        public bool TemplateInitialized => _template != null;
 
         private void OnValidate()
         {
@@ -36,7 +38,7 @@ namespace PathCreationTools
 
             var distance = nearestPath.path.GetClosestDistanceAlongPath(hitInfo.point);
 
-            var pathObject = PrefabUtility.InstantiatePrefab(_template, _parent) as PathObject;
+            var pathObject = PrefabUtility.InstantiatePrefab(_template, _container) as PathObject;
             pathObject.Setup(nearestPath, distance, _offset, _height);
         }
 

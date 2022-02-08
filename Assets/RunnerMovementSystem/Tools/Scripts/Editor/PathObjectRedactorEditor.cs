@@ -84,6 +84,9 @@ namespace PathCreationToolsEditor
                 "CTRL + Left Mouse Button = Remove Object", MessageType.Info);
             GUILayout.Space(15f);
 
+            if (_pathObjectRedactor.TemplateInitialized == false)
+                EditorGUILayout.HelpBox("Template is null", MessageType.Error);
+
             base.OnInspectorGUI();
         }
 
