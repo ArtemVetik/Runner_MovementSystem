@@ -17,6 +17,8 @@ namespace RunnerMovementSystem.Model
 
         public float Offset => _movementBehaviour.Offset;
 
+        public PathSegment PathSegment => _roadSegment;
+
         public void Update()
         {
             if (_roadSegment.AutoMoveForward)

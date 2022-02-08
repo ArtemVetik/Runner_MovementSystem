@@ -19,6 +19,7 @@ namespace RunnerMovementSystem
         public float Offset => _currentMovement.Offset;
         public float CurrentSpeed => _movementBehaviour.GetCurrentSpeed();
         public bool IsOnTransition => _currentMovement is TransitionMovement;
+        public PathSegment CurrentRoad => _currentMovement.PathSegment;
 
         private void Awake()
         {
@@ -81,7 +82,7 @@ namespace RunnerMovementSystem
             var nearestRoad = roadSegment.GetNearestRoad(transform.position);
             if (nearestRoad == null)
                 return;
-            
+
             _roadMovement.Init(nearestRoad);
             _currentMovement = _roadMovement;
 
