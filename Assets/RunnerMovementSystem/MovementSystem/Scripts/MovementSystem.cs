@@ -61,12 +61,14 @@ namespace RunnerMovementSystem
 
         public void MoveForward()
         {
-            _currentMovement.MoveForward();
+            if (enabled)
+                _currentMovement.MoveForward();
         }
 
         public void SetOffset(float offset)
         {
-            _currentMovement.SetOffset(offset);
+            if (enabled)
+                _currentMovement.SetOffset(offset);
         }
 
         public void Transit(TransitionSegment transition)
