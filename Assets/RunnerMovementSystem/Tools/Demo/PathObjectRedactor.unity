@@ -3331,6 +3331,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a7904073e150149b5d12b6099dbbe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 0
+  _rotationSpeed: 0
+  _target: {fileID: 0}
+  _height: 0
+  _distance: 0
+  _lookAngle: 0
 --- !u!1 &997494388
 GameObject:
   m_ObjectHideFlags: 0
@@ -5621,6 +5627,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00cfbcbfac6aca45a2e401ead3c10f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _roadMovement: {fileID: 0}
+  _sensitivity: 0.01
 --- !u!1001 &1838340326
 PrefabInstance:
   m_ObjectHideFlags: 0
