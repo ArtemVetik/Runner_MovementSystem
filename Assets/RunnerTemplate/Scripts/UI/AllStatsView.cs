@@ -11,18 +11,21 @@ public class AllStatsView : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private Font _font;
     [SerializeField] private int _fontSize;
+    [SerializeField] private Color _color;
 
     private Text _playerHealh;
     private Text _currentOffset;
     private Text _maxSpeed;
     private Text _isOnTransition;
+    private Text _currentRoad;
 
     private void Start()
     {
         _playerHealh = Create("PlayerStat");
-        _currentOffset = Create("CurrentOffset");
         _maxSpeed = Create("MaxSpeed");
+        _currentOffset = Create("CurrentOffset");
         _isOnTransition = Create("IsOnTransition");
+        _currentRoad = Create("CurrentRoad");
     }
 
     private void Update()
@@ -31,6 +34,7 @@ public class AllStatsView : MonoBehaviour
         _currentOffset.text = $"Move offset: {_movementSystem.Offset}";
         _maxSpeed.text = $"Max speed: {_movementSystem.CurrentSpeed}";
         _isOnTransition.text = $"Is On Transition: {_movementSystem.IsOnTransition}";
+        _currentRoad.text = $"Current Road: {_movementSystem.CurrentRoad.gameObject.name}";
     }
 
     private Text Create(string objectName = "New Game Object")
@@ -40,6 +44,8 @@ public class AllStatsView : MonoBehaviour
 
         text.font = _font;
         text.fontSize = _fontSize;
+        text.color = _color;
+        text.resizeTextForBestFit = true;
 
         return text;
     }
