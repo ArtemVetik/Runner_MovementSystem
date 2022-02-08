@@ -70,16 +70,11 @@ namespace RunnerMovementSystem
         public float GetOffsetByPosition(Vector3 position)
         {
             var distance = GetClosestDistanceAlongPath(position);
-
             var point = GetPointAtDistance(distance);
             var normal = GetNormalAtDistance(distance);
             var plane = new Plane(normal, point);
 
-            var offset = Vector3.Distance(position, point);
-            if (plane.GetSide(position) == false)
-                offset *= -1;
-
-            return offset;
+            return plane.GetDistanceToPoint(position);
         }
 
         public Vector3 GetPointAtDistance(float distance, EndOfPathInstruction instruction = EndOfPathInstruction.Loop)
@@ -105,11 +100,6 @@ namespace RunnerMovementSystem
         public Vector3 GetNormalAtDistance(float distance)
         {
             return _pathCreator.path.GetNormalAtDistance(distance);
-        }
-
-        public Vector3 GetDirectionAtDistance(float distance)
-        {
-            return _pathCreator.path.GetDirectionAtDistance(distance);
         }
     }
 }
