@@ -10,7 +10,6 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private MovementSystem _movement;
 
     private Animator _animator;
-    private bool _died = false;
 
     private void Awake()
     {
@@ -33,15 +32,24 @@ public class PlayerAnimations : MonoBehaviour
         _movement.PathChanged -= OnPathChanged;
     }
 
+    public void Walk()
+    {
+        _animator.SetTrigger(AnimationParams.Walking);
+    }
+
+    public void ChickenDance()
+    {
+        _animator.SetTrigger(AnimationParams.Chicken);
+    }
+
     private void OnPlayerDied()
     {
-        _died = true;
         _animator.SetTrigger(AnimationParams.Death);
     }
 
     private void OnMoveStarted()
     {
-        if (_died || _movement.IsOnTransition)
+        if (_movement.enabled == false || _movement.IsOnTransition)
             return;
 
         _animator.SetTrigger(AnimationParams.Running);
@@ -49,18 +57,18 @@ public class PlayerAnimations : MonoBehaviour
 
     private void OnMoveEnded()
     {
-        if (_died || _movement.IsOnTransition)
+        if (_movement.enabled == false || _movement.IsOnTransition)
             return;
 
         _animator.SetTrigger(AnimationParams.DynIdle);
     }
-
+    
     private void OnPathChanged(PathSegment pathSegment)
     {
-        if (_movement.IsOnTransition)
-            _animator.SetTrigger(AnimationParams.Jumping);
-        else
-            _animator.SetTrigger(AnimationParams.Landing);
+        _animator.SetBool(AnimationParams.Jumping, _movement.IsOnTransition);
+
+        if (_movement.IsOnTransition == false && _input.IsMoved)
+            _animator.SetTrigger(AnimationParams.Running);
     }
 
     private static class AnimationParams
@@ -69,6 +77,8 @@ public class PlayerAnimations : MonoBehaviour
         public static readonly string Running = nameof(Running);
         public static readonly string DynIdle = nameof(DynIdle);
         public static readonly string Jumping = nameof(Jumping);
-        public static readonly string Landing = nameof(Landing);
+        public static readonly string StartJump = nameof(StartJump);
+        public static readonly string Chicken = nameof(Chicken);
+        public static readonly string Walking = nameof(Walking);
     }
 }
