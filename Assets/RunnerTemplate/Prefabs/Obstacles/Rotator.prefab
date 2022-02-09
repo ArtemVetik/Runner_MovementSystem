@@ -192,4 +192,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggers:
   - {fileID: 1077055687979344938}
-  _damageForce: 10
+  _damageForce: 40

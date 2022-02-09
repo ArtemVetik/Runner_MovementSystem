@@ -1,9 +1,14 @@
 using RunnerMovementSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour, IDamageable
 {
+    [SerializeField] private MovementSystem _movementSystem;
+
     private Health _health;
+
+    public event UnityAction Died;
 
     public float Health => _health.Value;
 
@@ -30,6 +35,8 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnDied()
     {
+        _movementSystem.enabled = false;
+        Died?.Invoke();
         Debug.Log(name + " died!");
     }
 }

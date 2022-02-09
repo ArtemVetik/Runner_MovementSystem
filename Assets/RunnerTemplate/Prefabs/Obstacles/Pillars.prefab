@@ -87,7 +87,7 @@ MonoBehaviour:
   - {fileID: 6823220854257511480}
   - {fileID: 6823220854046358337}
   - {fileID: 6823220854903271605}
-  _damageForce: 5
+  _damageForce: 30
 --- !u!1 &6823220854046358348
 GameObject:
   m_ObjectHideFlags: 0

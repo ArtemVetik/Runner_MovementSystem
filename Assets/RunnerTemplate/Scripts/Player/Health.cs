@@ -18,7 +18,7 @@ public class Health
     {
         Value -= value;
 
-        if (Value < 0)
+        if (Value <= 0)
         {
             Value = 0;
             Died?.Invoke();
