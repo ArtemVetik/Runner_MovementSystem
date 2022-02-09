@@ -11,6 +11,7 @@ namespace PathCreationTools
         [SerializeField] private float _distance;
         [SerializeField] private float _offset;
         [SerializeField] private float _height;
+        [SerializeField] private float _yRotation;
 
         public bool Attached => _pathCreator != null;
 
@@ -96,7 +97,7 @@ namespace PathCreationTools
                 return;
             }
 
-            transform.rotation = _pathCreator.path.GetRotationAtDistance(_distance) * Quaternion.Euler(0f, 0f, 90f);
+            transform.rotation = _pathCreator.path.GetRotationAtDistance(_distance) * Quaternion.Euler(_yRotation, 0, 90f);
 
             var point = _pathCreator.path.GetPointAtDistance(_distance);
             var normal = _pathCreator.path.GetNormalAtDistance(_distance).normalized;

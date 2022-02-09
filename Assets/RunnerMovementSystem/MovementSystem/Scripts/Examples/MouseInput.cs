@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RunnerMovementSystem.Examples
 {
@@ -9,6 +10,9 @@ namespace RunnerMovementSystem.Examples
 
         private Vector3 _mousePosition;
         private float _saveOffset;
+
+        public event UnityAction MoveStarted;
+        public event UnityAction MoveEnded;
 
         public bool IsMoved { get; private set; }
 
@@ -34,6 +38,7 @@ namespace RunnerMovementSystem.Examples
             {
                 _saveOffset = _roadMovement.Offset;
                 _mousePosition = Input.mousePosition;
+                MoveStarted?.Invoke();
                 IsMoved = true;
             }
 
@@ -46,6 +51,7 @@ namespace RunnerMovementSystem.Examples
 
             if (Input.GetMouseButtonUp(0))
             {
+                MoveEnded?.Invoke();
                 IsMoved = false;
             }
         }
