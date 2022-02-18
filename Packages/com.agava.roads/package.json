@@ -1,0 +1,16 @@
+{
+  "name": "com.agava.roads",
+  "version": "1.0.0",
+  "displayName": "Roads",
+  "type": "library",
+  "unity": "2020.3",
+  "description": "Tools for creating roads in Unity.",
+  "license": "MIT",
+  "samples": [
+    {
+      "displayName": "Runner Sample",
+      "description": "Contains sample for creating a runner.",
+      "path": "Samples~/Runner"
+    }
+  ]
+}
