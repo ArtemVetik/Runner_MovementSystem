@@ -6,6 +6,13 @@
       "source": "embedded",
       "dependencies": {}
     },
+    "com.seblague.pathcreator": {
+      "version": "https://github.com/krisrok/Path-Creator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bb75174e3829e45c905fe9a4cbd9edfef6089a7a"
+    },
     "com.unity.collab-proxy": {
       "version": "1.13.5",
       "depth": 0,
