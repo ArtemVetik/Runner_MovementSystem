@@ -16,6 +16,7 @@ namespace PathCreationTools
         [SerializeField] private float _offset;
         [SerializeField] private float _height;
         [SerializeField] private float _distanceBetweenObjects;
+        [SerializeField] private Vector3 _eulerAngles;
 
         public int CachedCount => _cachedObjects.Count;
         public float DistanceBetweenObjects => _distanceBetweenObjects;
@@ -39,7 +40,7 @@ namespace PathCreationTools
             var distance = nearestPath.path.GetClosestDistanceAlongPath(hitInfo.point);
 
             var pathObject = PrefabUtility.InstantiatePrefab(_template, _container) as PathObject;
-            pathObject.Setup(nearestPath, distance, _offset, _height);
+            pathObject.Setup(nearestPath, distance, _offset, _height, _eulerAngles);
         }
 
         public void RemoveObject(RaycastHit hitInfo)

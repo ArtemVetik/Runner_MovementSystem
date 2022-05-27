@@ -11,6 +11,7 @@ namespace PathCreationTools
         [SerializeField] private float _distance;
         [SerializeField] private float _offset;
         [SerializeField] private float _height;
+        [SerializeField] private Vector3 _eulerAngles;
 
         public bool Attached => _pathCreator != null;
 
@@ -20,7 +21,7 @@ namespace PathCreationTools
                 UpdatePosition();
         }
 
-        public void Setup(PathCreator pathCreator, float distance, float offset, float height)
+        public void Setup(PathCreator pathCreator, float distance, float offset, float height, Vector3 eulerAngles)
         {
             if (pathCreator == null)
                 throw new NullReferenceException(nameof(pathCreator));
@@ -32,6 +33,7 @@ namespace PathCreationTools
             _distance = distance;
             _offset = offset;
             _height = height;
+            _eulerAngles = eulerAngles;
 
             _pathCreator.pathUpdated += OnPathUpdated;
 
@@ -104,6 +106,7 @@ namespace PathCreationTools
             point += transform.up * _height;
 
             transform.position = point;
+            transform.eulerAngles = _eulerAngles;
         }
 
         private void OnDestroy()
