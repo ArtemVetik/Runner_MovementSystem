@@ -46,7 +46,7 @@ namespace RunnerMovementSystem
 
             foreach (var road in _targetRoads)
             {
-                var closestPoint = road.GetClosestPointOnPath(transform.position);
+                var closestPoint = road.GetClosestPointOnPath(fromPosition);
                 var distanceToRoad = Vector3.Distance(fromPosition, closestPoint);
 
                 if (distanceToRoad < minDistance)
